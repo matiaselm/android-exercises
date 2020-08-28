@@ -15,7 +15,7 @@ class Conn (
         private val myHandler = mHand
 
         override fun run() {
-            Log.d("Thread-lab", "in run func")
+            Log.d("Coroutine-lab", "in run func")
             try {
                 // val myUrl = URL("https://a.com/post.php")
                 val myUrl = URL("https://www.w3.org/TR/PNG/iso_8859-1.txt")
@@ -48,7 +48,7 @@ class Conn (
                 myHandler.sendMessage(msg)
 
             }catch(e: Exception){
-                Log.d("Thread-lab", "$e")
+                Log.d("Coroutine-lab", "$e")
             }
         }
     }
