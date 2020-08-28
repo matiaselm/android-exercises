@@ -13,9 +13,6 @@ import android.util.Log
 
 
 class MainActivity : AppCompatActivity() {
-
-    // Image link: https://i.redd.it/qs0v7vt9b7i51.jpg
-
     private val myHandler: Handler = object :
             Handler(Looper.getMainLooper()) {
         override fun handleMessage(inputMessage: Message) {
