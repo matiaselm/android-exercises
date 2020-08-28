@@ -1,4 +1,4 @@
-package com.example.lab_w1_d4_thread
+package com.example.exercises
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

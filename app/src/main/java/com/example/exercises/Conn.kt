@@ -1,4 +1,4 @@
-package com.example.lab_w1_d4_thread
+package com.example.exercises
 
 import android.os.Handler
 import android.util.Log
