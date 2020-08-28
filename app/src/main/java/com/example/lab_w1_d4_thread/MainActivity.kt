@@ -32,9 +32,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("Thread-lab","onCreate")
         if (isNetworkAvailable()) {
             val myRunnable = Conn(
-                    myHandler,
-                    "John",
-                    "Doe")
+                    myHandler)
             val myThread = Thread(myRunnable)
             myThread.start()
         }
