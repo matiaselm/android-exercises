@@ -2,6 +2,7 @@ package com.example.exercises
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,7 +27,11 @@ class MainActivity : AppCompatActivity() {
             a layout file specifying what each row in the list should look like,
             and the data that will populate the list as arguments.*/
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
-        president_list_view.adapter = adapter
+        presidentListView.adapter = adapter
+
+        presidentListView.setOnItemClickListener{ _, _, position, _ ->
+            Log.d("list-lab", "selected $position")
+        }
 
         }
     }
