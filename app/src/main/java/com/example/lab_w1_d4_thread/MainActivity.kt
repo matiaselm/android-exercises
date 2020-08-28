@@ -23,8 +23,6 @@ import java.net.URL
 
 class MainActivity : AppCompatActivity() {
 
-    // Image link: https://i.redd.it/qs0v7vt9b7i51.jpg
-
     private val myHandler: Handler = object :
             Handler(Looper.getMainLooper()) {
         override fun handleMessage(inputMessage: Message) {
@@ -66,9 +64,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             val myRunnable = Conn(
-                    myHandler,
-                    "John",
-                    "Doe")
+                    myHandler)
+
             val myThread = Thread(myRunnable)
             myThread.start()
         }
