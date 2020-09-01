@@ -24,6 +24,12 @@ class MainActivity : AppCompatActivity() {
             presidentDescriptionView.text = presidentList[position].description
 
         }
+
+        presidentListView.setOnItemLongClickListener { _, _, position, _ ->
+            Log.d("list-lab","long click on $position")
+
+            true
+        }
     }
 }
 
