@@ -6,14 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/presidentDetailsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/presidentNameView"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="5dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/presidentDescriptionView"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="5dp"
+            android:text="" />
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/presidentListView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/presidentDetailsView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

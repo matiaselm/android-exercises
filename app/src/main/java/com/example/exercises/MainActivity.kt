@@ -12,27 +12,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //  This creates an array of strings that’ll contain the text to be displayed in the ListView.
-        val presidentList = GlobalModel.presidents
-        val listItems = arrayOfNulls<String>(presidentList.size)
+        //  This creates an array of presidents that’ll contain the text to be displayed in the ListView.
+        val presidentList = GlobalModel.presidents.toTypedArray()
 
-        //  This populates the ListView’s data source with the presidents loaded before.
-        for (i in 0 until presidentList.size) {
-            val president = presidentList[i]
-            listItems[i] = president.toString()
-        }
-
-        /*  This creates and sets a simple adapter for the ListView.
-            The ArrayAdapter takes in the current context,
-            a layout file specifying what each row in the list should look like,
-            and the data that will populate the list as arguments.*/
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
+        val adapter = ListAdapter(this, presidentList)
         presidentListView.adapter = adapter
 
-        presidentListView.setOnItemClickListener{ _, _, position, _ ->
+        presidentListView.setOnItemClickListener { _, _, position, _ ->
             Log.d("list-lab", "selected $position")
-        }
+            presidentNameView.text = presidentList[position].name
+            presidentDescriptionView.text = presidentList[position].description
 
         }
     }
+}
 
