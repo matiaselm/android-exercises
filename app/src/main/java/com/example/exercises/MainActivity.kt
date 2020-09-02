@@ -13,13 +13,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var mBluetoothAdapter: BluetoothAdapter? = null
-    private var mScanResults: HashMap<String, ScanResult>? = null
-    private var mScanCallback: BtleScanCallback? = null
-    private var mScanning: Boolean = false
+    companion object {
+        const val SCAN_PERIOD: Long = 3000
+        private var mBluetoothAdapter: BluetoothAdapter? = null
+        private var mScanResults: HashMap<String, ScanResult>? = null
+        private var mScanCallback: BtleScanCallback? = null
+        private var mScanning: Boolean = false
+    }
+
 
     private fun hasPermissions(): Boolean {
         if (mBluetoothAdapter == null || !mBluetoothAdapter!!.isEnabled) {
@@ -63,11 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    companion object {
-        const val SCAN_PERIOD: Long = 3000
-    }
-
+    // Starts scan and finds devices, works at least somewhat
     private fun startScan() {
         Log.d("bluetooth-lab", "Scan start")
         mScanResults = HashMap()
@@ -88,7 +89,9 @@ class MainActivity : AppCompatActivity() {
         mBluetoothLeScanner!!.startScan(filter, settings, mScanCallback)
     }
 
+    // Isn't working as supposed to, doesn't stop the scan
     private fun stopScan() {
+        Log.d("bluetooth-lab","Scan stop")
         val mBluetoothLeScanner = mBluetoothAdapter!!.bluetoothLeScanner
         mScanCallback = BtleScanCallback()
         mScanning = false
@@ -101,6 +104,12 @@ class MainActivity : AppCompatActivity() {
 
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         mBluetoothAdapter = bluetoothManager.adapter
+
+        button.setOnClickListener() {
+            if(hasPermissions()){
+                startScan()
+            }
+        }
     }
 }
 
