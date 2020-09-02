@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import kotlinx.android.synthetic.main.custom_list_item.view.*
 
 class ListAdapter(private val context: Context, private val dataSource: Array<President>)
     : BaseAdapter() {
@@ -30,11 +31,8 @@ class ListAdapter(private val context: Context, private val dataSource: Array<Pr
 
         // Get view for row item
         val rowView = inflater.inflate(R.layout.custom_list_item, parent, false)
-        val titleView = rowView.findViewById(R.id.title) as TextView
-        val descriptionView = rowView.findViewById(R.id.description) as TextView
-
-        titleView.text = president.name
-        descriptionView.text = "${president.startDuty} - ${president.endDuty}"
+        rowView.title.text = president.name
+        rowView.description.text = "${president.startDuty} - ${president.endDuty}"
 
         return rowView
     }
