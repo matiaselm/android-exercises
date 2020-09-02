@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">Android exercises</string>
-    <string name="branch_master">Change branch to see different exercises</string>
+    <string name="app_name">Bluetooth</string>
 </resources>
