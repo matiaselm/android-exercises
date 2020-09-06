@@ -10,8 +10,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        txt_network.text = getString(R.string.branch_master)
-
         }
     }
 

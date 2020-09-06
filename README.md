@@ -2,4 +2,4 @@
 
 School exercises for Kotlin.
 
-Different branches contain different exercises
+Accelerometer-lab, internal sensor exercise
