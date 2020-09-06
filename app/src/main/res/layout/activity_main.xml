@@ -9,25 +9,55 @@
     <LinearLayout
         android:id="@+id/presidentDetailsView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/presidentNameView"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_margin="5dp"
-            android:text="" />
+        <LinearLayout
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/presidentDescriptionView"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_margin="5dp"
-            android:text="" />
+            <TextView
+                android:id="@+id/presidentNameView"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_margin="5dp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/presidentDescriptionView"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_margin="5dp"
+                android:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/hitsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_margin="5dp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/presidentHits"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_margin="5dp"
+                android:text="" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
