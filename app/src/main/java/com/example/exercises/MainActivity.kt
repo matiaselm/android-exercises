@@ -58,43 +58,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensorManager.unregisterListener(this)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onSensorChanged(event: SensorEvent?) {
-        // Log.d("sensor", "onSensorChanged sensor: ${event.sensor}")
 
         when (event?.sensor?.type) {
             accelerometer?.type -> {
-
                 Log.d("sensor", "accelerometer changed: $accelerometer")
-
-
-                val alpha = 0.8f
-
-
-
                 if(event != null){
 
+                    /*
                     Log.d("sensor","SensorX changed: ${event.values[0]}")
                     Log.d("sensor","SensorY changed: ${event.values[1]}")
                     Log.d("sensor","SensorZ changed: ${event.values[2]}")
-
+*/
                     this.tvAccelerometerX.text = "X: ${event.values[0]}"
                     this.tvAccelerometerY.text = "Y: ${event.values[1]}"
                     this.tvAccelerometerZ.text = "Z: ${event.values[2]}"
-
-                    /*
-                    accelGravity[0] = alpha * accelGravity[0]!! + (1 - alpha) * event.values[0]
-                    accelGravity[1] = alpha * accelGravity[1]!! + (1 - alpha) * event.values[1]
-                    accelGravity[2] = alpha * accelGravity[2]!! + (1 - alpha) * event.values[2]
-
-                    accelLin[0] = event.values[0] - accelGravity[0]!!
-                    accelLin[1] = event.values[1] - accelGravity[1]!!
-                    accelLin[2] = event.values[2] - accelGravity[2]!!
-
-                    this.tvAccelerometerX.text = "X: ${accelLin[0]}"
-                    this.tvAccelerometerY.text = "Y: ${accelLin[1]}"
-                    this.tvAccelerometerZ.text = "Z: ${accelLin[2]}"
-
-                    */
 
                 }
 
