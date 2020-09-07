@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.lab_w1_d4_thread"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
