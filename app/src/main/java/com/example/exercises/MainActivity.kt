@@ -9,12 +9,8 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
-import android.view.animation.AnimationUtils
-import android.view.animation.TranslateAnimation
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import at.wirecube.additiveanimations.additive_animator.AdditiveAnimator
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -23,8 +19,8 @@ open class MainActivity : AppCompatActivity(), SensorEventListener {
     /*source: https://expertise.jetruby.com/how-to-implement-motion-sensor-in-a-kotlin-app-b70db1b5b8e5 */
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
-    private var pos: Boolean = false
     private var screenHeight = 0f
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,59 +55,10 @@ open class MainActivity : AppCompatActivity(), SensorEventListener {
         val amountToMoveRight = X * -100
         val amountToMoveDown = Y * 100
 
-        val anim = TranslateAnimation(0f, amountToMoveRight, 0f, amountToMoveDown)
-        anim.duration = 2000
-
-        anim.setAnimationListener(object : AnimationListener {
-            override fun onAnimationStart(animation: Animation) {}
-            override fun onAnimationRepeat(animation: Animation) {}
-            override fun onAnimationEnd(animation: Animation) {
-                val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,100)
-                params.topMargin += amountToMoveDown.toInt()
-                params.leftMargin += amountToMoveRight.toInt()
-                view.layoutParams = params
-            }
-        })
-
-
-        view.startAnimation(anim)
-
-
-        /*
-        val valueAnimator = ValueAnimator.ofFloat(0f, -screenHeight)
-
-        valueAnimator.addUpdateListener {
-            val value = it.animatedValue as Float
-            coordinateLayout.translationY = value
-        }
-
-        valueAnimator.interpolator = LinearInterpolator()
-        valueAnimator.duration = 2500L
-
-        valueAnimator.start()
-
-        */
-
-        /*
-        if(Y < -2){
-            val animation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
-            coordinateLayout.startAnimation(animation)
-            return
-        }
-
-        if(Y > 2){
-            val animation = AnimationUtils.loadAnimation(this, R.anim.slide_down)
-            coordinateLayout.startAnimation(animation)
-            return
-        }
-        /*
-        val animation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
-        coordinateLayout.startAnimation(animation)
-        */
-
-        */
-
-
+        AdditiveAnimator.animate(coordinateLayout, 1000)
+            .x(amountToMoveRight)
+            .y(amountToMoveDown)
+            .start()
     }
 
     override fun onResume() {
@@ -136,11 +83,6 @@ open class MainActivity : AppCompatActivity(), SensorEventListener {
                 // Log.d("sensor", "accelerometer changed: $accelerometer")
                 if (event != null) {
 
-                    /*
-                    Log.d("sensor","SensorX changed: ${event.values[0]}")
-                    Log.d("sensor","SensorY changed: ${event.values[1]}")
-                    Log.d("sensor","SensorZ changed: ${event.values[2]}")
-*/
                     this.tvAccelerometerX.text = "X: ${event.values[0]}"
                     this.tvAccelerometerY.text = "Y: ${event.values[1]}"
                     this.tvAccelerometerZ.text = "Z: ${event.values[2]}"
