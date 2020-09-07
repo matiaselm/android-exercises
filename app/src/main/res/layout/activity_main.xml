@@ -13,7 +13,7 @@
         android:layout_width="269dp"
         android:layout_height="177dp"
         android:orientation="vertical"
-        android:layout_gravity="bottom|center_horizontal"
+        android:layout_gravity="center|center_horizontal"
         android:animateLayoutChanges="true"
         >
 

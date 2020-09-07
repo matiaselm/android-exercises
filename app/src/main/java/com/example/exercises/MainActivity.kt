@@ -8,6 +8,12 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.AnimationUtils
+import android.view.animation.TranslateAnimation
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -46,9 +52,30 @@ open class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     // Point of this function is to apply animation to the screen showing the value according to them
-    private fun animate(X: Float, Y: Float, Z: Float) {
+    private fun animate(X: Float, Y: Float, Z: Float, view: View) {
 
-        Log.d("sensor","animate start")
+        Log.d("sensor", "animate start")
+
+        val amountToMoveRight = X * -100
+        val amountToMoveDown = Y * 100
+
+        val anim = TranslateAnimation(0f, amountToMoveRight, 0f, amountToMoveDown)
+        anim.duration = 2000
+
+        anim.setAnimationListener(object : AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationRepeat(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
+                val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,100)
+                params.topMargin += amountToMoveDown.toInt()
+                params.leftMargin += amountToMoveRight.toInt()
+                view.layoutParams = params
+            }
+        })
+
+
+        view.startAnimation(anim)
+
 
         /*
         val valueAnimator = ValueAnimator.ofFloat(0f, -screenHeight)
@@ -66,9 +93,24 @@ open class MainActivity : AppCompatActivity(), SensorEventListener {
         */
 
         /*
+        if(Y < -2){
+            val animation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
+            coordinateLayout.startAnimation(animation)
+            return
+        }
+
+        if(Y > 2){
+            val animation = AnimationUtils.loadAnimation(this, R.anim.slide_down)
+            coordinateLayout.startAnimation(animation)
+            return
+        }
+        /*
         val animation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
         coordinateLayout.startAnimation(animation)
         */
+
+        */
+
 
     }
 
@@ -103,7 +145,7 @@ open class MainActivity : AppCompatActivity(), SensorEventListener {
                     this.tvAccelerometerY.text = "Y: ${event.values[1]}"
                     this.tvAccelerometerZ.text = "Z: ${event.values[2]}"
 
-                    animate(event.values[0], event.values[1], event.values[2])
+                    animate(event.values[0], event.values[1], event.values[2], coordinateLayout)
 
                 }
 
