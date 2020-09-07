@@ -17,15 +17,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
 
-    private lateinit var accelGravity: MutableMap<Int, Double?>
-    private lateinit var accelLin: MutableMap<Int, Double?>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        accelGravity = mutableMapOf<Int, Double?>()
-        accelLin = mutableMapOf<Int, Double?>()
 
         /**
         This operator tries to cast a service instance to a SensorManger-type
