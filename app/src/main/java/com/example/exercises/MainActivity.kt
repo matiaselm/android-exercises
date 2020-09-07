@@ -16,7 +16,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 open class MainActivity : AppCompatActivity(), SensorEventListener {
 
-    /*source: https://expertise.jetruby.com/how-to-implement-motion-sensor-in-a-kotlin-app-b70db1b5b8e5 */
+    /*sources: https://expertise.jetruby.com/how-to-implement-motion-sensor-in-a-kotlin-app-b70db1b5b8e5
+    * https://github.com/wirecube/android_additive_animations */
+
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
     private var screenHeight = 0f
@@ -55,7 +57,7 @@ open class MainActivity : AppCompatActivity(), SensorEventListener {
         val amountToMoveRight = X * -100
         val amountToMoveDown = Y * 100
 
-        AdditiveAnimator.animate(coordinateLayout, 1000)
+        AdditiveAnimator.animate(view, 1000)
             .x(amountToMoveRight)
             .y(amountToMoveDown)
             .start()
@@ -87,10 +89,9 @@ open class MainActivity : AppCompatActivity(), SensorEventListener {
                     this.tvAccelerometerY.text = "Y: ${event.values[1]}"
                     this.tvAccelerometerZ.text = "Z: ${event.values[2]}"
 
-                    animate(event.values[0], event.values[1], event.values[2], coordinateLayout)
-
+                    // Animate gives sensor's value to the additive animator and it moves the box with it
+                    animate(event.values[0], event.values[1], event.values[2], box)
                 }
-
             }
         }
     }

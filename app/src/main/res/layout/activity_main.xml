@@ -8,13 +8,25 @@
     tools:context=".MainActivity"
     android:animateLayoutChanges="true">
 
+    <FrameLayout
+        android:id="@+id/box"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/colorAccent"
+        android:animateLayoutChanges="true">
+
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/coordinateLayout"
         android:layout_width="269dp"
         android:layout_height="177dp"
         android:orientation="vertical"
-        android:layout_gravity="center|center_horizontal"
+        android:layout_gravity="top|start"
         android:animateLayoutChanges="true"
+        android:elevation="8dp"
+        android:layout_margin="12dp"
         >
 
         <TextView
@@ -23,7 +35,8 @@
             android:layout_height="wrap_content"
             android:text=""
             android:layout_weight="1"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            />
 
         <TextView
             android:id="@+id/tvAccelerometerY"
@@ -31,7 +44,8 @@
             android:layout_height="wrap_content"
             android:text=""
             android:layout_weight="1"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            />
 
         <TextView
             android:id="@+id/tvAccelerometerZ"
@@ -39,6 +53,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:layout_weight="1"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            />
     </LinearLayout>
 </FrameLayout>
