@@ -15,8 +15,10 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,12 +26,16 @@ class MainActivity : AppCompatActivity() {
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private val LOCATION_PERMISSION_REQ_CODE = 1000;
+    private lateinit var locationRequest: LocationRequest
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        initLocationReq()
 
         button.setOnClickListener {
             getCurrentLocation()
@@ -52,13 +58,15 @@ class MainActivity : AppCompatActivity() {
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQ_CODE
             )
-
             return
         }
 
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             latitude = location.latitude
             longitude = location.longitude
+
+            txtLatitude.text = "latitude: $latitude"
+            txtLongitude.text = "longitude: $longitude"
 
             Log.d("GEOLOCATION", "latitude: $latitude \n longitude: $longitude")
         }
@@ -84,6 +92,26 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun initLocationReq(){
+        locationRequest = LocationRequest().apply {
+
+            // IMPORTANT NOTE: Apps running on Android 8.0 and higher devices (regardless of
+            // targetSdkVersion) may receive updates less frequently than this interval when the app
+            // is no longer in the foreground.
+            interval = TimeUnit.SECONDS.toMillis(60)
+
+            // Sets the fastest rate for active location updates. This interval is exact, and your
+            // application will never receive updates more frequently than this value.
+            fastestInterval = TimeUnit.SECONDS.toMillis(30)
+
+            // Sets the maximum time when batched location updates are delivered. Updates may be
+            // delivered sooner than this interval.
+            maxWaitTime = TimeUnit.MINUTES.toMillis(2)
+
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
     }
 
