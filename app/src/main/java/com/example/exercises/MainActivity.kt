@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() {
             getCurrentLocation()
         }
 
+        button2.setOnClickListener{
+            openMap()
+        }
+
     }
 
     private fun getCurrentLocation() {
