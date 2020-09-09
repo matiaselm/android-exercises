@@ -25,18 +25,17 @@ class MainActivity : AppCompatActivity() {
         private var mScanning: Boolean = false
     }
 
-
     private fun hasPermissions(): Boolean {
-        if (mBluetoothAdapter == null || !mBluetoothAdapter!!.isEnabled) {
+        return if (mBluetoothAdapter == null || !mBluetoothAdapter!!.isEnabled) {
             Log.d("bluetooth-lab", "No bluetooth LE capability")
-            return false
+            false
         } else if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.d("bluetooth-lab", "No fine location access")
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1);
-            return true // Assuming the user grants permission
+            true // Assuming the user grants permission
+        } else {
+            true
         }
-
-        return true
     }
 
     private inner class BtleScanCallback : ScanCallback() {
