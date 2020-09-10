@@ -13,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +28,9 @@ class MainActivity : AppCompatActivity() {
         private var mScanCallback: BtleScanCallback? = null
         private var mScanning: Boolean = false
     }
+
+    private lateinit var adapter: RecyclerAdapter
+    private lateinit var deviceList: ArrayList<Device>
 
     private fun hasPermissions(): Boolean {
         return if (mBluetoothAdapter == null || !mBluetoothAdapter!!.isEnabled) {
@@ -58,14 +65,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         private fun addScanResult(result: ScanResult) {
+
             val device = result.device
+
             val deviceAddress = device.address
             mScanResults!![deviceAddress] = result
 
-            Log.d("bluetooth-lab", "Device address: $deviceAddress (${result.isConnectable}")
+            val newDevice = Device(device.name,device.address,result.isConnectable.toString())
+            if(!deviceList.contains(newDevice)){
+                deviceList.add(newDevice)
+                adapter.notifyDataSetChanged()
+            }
+
+            Log.d("bluetooth-lab","$deviceList")
+
+            Log.d("bluetooth-lab", "Device: ${device.name} $deviceAddress (${result.isConnectable}")
         }
     }
-
 
     // Starts scan and finds devices, works at least somewhat
     private fun startScan() {
@@ -82,30 +98,32 @@ class MainActivity : AppCompatActivity() {
 
         // Stops scanning after a pre-defined scan period
         val mHandler = Handler()
-        mHandler.postDelayed({ stopScan() }, SCAN_PERIOD)
+        mHandler.postDelayed({ mBluetoothLeScanner!!.stopScan(mScanCallback) }, SCAN_PERIOD)
 
         mScanning = true
         mBluetoothLeScanner!!.startScan(filter, settings, mScanCallback)
-    }
-
-    // Isn't working as supposed to, doesn't stop the scan
-    private fun stopScan() {
-        Log.d("bluetooth-lab","Scan stop")
-        val mBluetoothLeScanner = mBluetoothAdapter!!.bluetoothLeScanner
-        mScanCallback = BtleScanCallback()
-        mScanning = false
-        mBluetoothLeScanner!!.stopScan(mScanCallback)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        deviceList = ArrayList()
+        adapter = RecyclerAdapter(this,deviceList)
+
+        // Recycler
+        val rv = recyclerView as RecyclerView
+        rv.layoutManager = LinearLayoutManager(this)
+        rv.itemAnimator = DefaultItemAnimator()
+
+        // Set adapter
+        rv.adapter = adapter
+
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         mBluetoothAdapter = bluetoothManager.adapter
 
-        button.setOnClickListener() {
-            if(hasPermissions()){
+        buttonStart.setOnClickListener() {
+            if (hasPermissions()) {
                 startScan()
             }
         }

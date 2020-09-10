@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Bluetooth</string>
+    <plurals name="foundDevices">
+        <item quantity="one">%d device found</item>
+        <item quantity="other">%d devices found</item>
+    </plurals>
+    <string name="device_name">%1$s</string>
+    <string name="device_mac">%1$s</string>
+    <string name="device_signal">%1$s</string>
 </resources>
