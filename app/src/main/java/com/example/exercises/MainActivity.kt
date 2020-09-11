@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: RecyclerAdapter
     private lateinit var deviceList: ArrayList<Device>
+    private lateinit var nameList: ArrayList<String>
 
     private fun hasPermissions(): Boolean {
         return if (mBluetoothAdapter == null || !mBluetoothAdapter!!.isEnabled) {
@@ -72,7 +73,9 @@ class MainActivity : AppCompatActivity() {
             mScanResults!![deviceAddress] = result
 
             val newDevice = Device(device.name,device.address,result.isConnectable.toString())
-            if(!deviceList.contains(newDevice)){
+            val deviceName = "${newDevice.name} ${device.address}"
+            if(!nameList.contains(deviceName)){
+                nameList.add(deviceName)
                 deviceList.add(newDevice)
                 adapter.notifyDataSetChanged()
             }
@@ -109,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         deviceList = ArrayList()
+        nameList = ArrayList()
         adapter = RecyclerAdapter(this,deviceList)
 
         // Recycler
