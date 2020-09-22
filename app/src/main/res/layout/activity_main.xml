@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hello!" />
+            android:text="@string/hello" />
 
         <TextView
             android:id="@+id/txtLatitude"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:layout_weight="1"
-            android:text="Get location" />
+            android:text="@string/location_button" />
 
         <Button
             android:id="@+id/button2"
@@ -64,6 +64,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:layout_weight="1"
-            android:text="Show map" />
+            android:text="@string/map_button" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

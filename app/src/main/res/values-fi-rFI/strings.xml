@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sijainti ja kartta</string>
+    <string name="hello">Hei!</string>
+
+    <string name="location_button">koordinaatit</string>
+    <string name="map_button">kartta</string>
+</resources>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Location and Map</string>
+    <string name="hello">Hello!</string>
+
+    <string name="location_button">get location</string>
+    <string name="map_button">show map</string>
 </resources>
